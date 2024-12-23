@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleMart - Categories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff4444;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 5rem;
+            padding: 2rem 5%;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Categories Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            aspect-ratio: 1;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 2rem;
+            color: white;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Featured Categories */
+        .featured-categories {
+            margin-top: 4rem;
+        }
+
+        .featured-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .featured-category {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            transition: background-color 0.3s;
+        }
+
+        .featured-category:hover .featured-overlay {
+            background: rgba(0,0,0,0.6);
+        }
+
+        .featured-category h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .shop-now-btn {
+            background-color: #ff4444;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .shop-now-btn:hover {
+            background-color: #ff2222;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 5%;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">TheBroBox</a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#shop">Shop</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="cart-icon">
+                🛒
+                <span class="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <h1 class="page-title">Shop by Category</h1>
+
+        <div class="categories-grid">
+            <div class="category-card">
+                <img src="/api/placeholder/400/400" alt="Women's Fashion" class="category-image">
+                <div class="category-overlay">
+                    <h2 class="category-title">Women's Fashion</h2>
+                    <p class="category-description">Discover the latest trends in women's clothing</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <img src="/api/placeholder/400/400" alt="Men's Fashion" class="category-image">
+                <div class="category-overlay">
+                    <h2 class="category-title">Men's Fashion</h2>
+                    <p class="category-description">Stylish collection for modern men</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <img src="/api/placeholder/400/400" alt="Accessories" class="category-image">
+                <div class="category-overlay">
+                    <h2 class="category-title">Accessories</h2>
+                    <p class="category-description">Complete your look with our accessories</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <img src="/api/placeholder/400/400" alt="Footwear" class="category-image">
+                <div class="category-overlay">
+                    <h2 class="category-title">Footwear</h2>
+                    <p class="category-description">Step out in style with our shoe collection</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="featured-categories">
+            <h2 class="featured-title">Featured Collections</h2>
+            <div class="featured-grid">
+                <div class="featured-category">
+                    <img src="/api/placeholder/800/400" alt="Summer Collection" class="featured-image">
+                    <div class="featured-overlay">
+                        <h3>Summer Collection</h3>
+                        <button class="shop-now-btn">Shop Now</button>
+                    </div>
+                </div>
+                <div class="featured-category">
+                    <img src="/api/placeholder/800/400" alt="New Arrivals" class="featured-image">
+                    <div class="featured-overlay">
+                        <h3>New Arrivals</h3>
+                        <button class="shop-now-btn">Shop Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#our-story">Our Story</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                    <li><a href="#press">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#shipping">Shipping Info</a></li>
+                    <li><a href="#returns">Returns & Exchanges</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <ul>
+                    <li><a href="#facebook">Facebook</a></li>
+                    <li><a href="#instagram">Instagram</a></li>
+                    <li><a href="#twitter">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 StyleMart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add hover effect to category cards
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Cart functionality
+        const cartIcon = document.querySelector('.cart-icon');
+        const cartCount = document.querySelector('.cart-count');
+        let count = 0;
+
+        cartIcon.addEventListener('click', () => {
+            count++;
+            cartCount.textContent = count;
+            alert('Item added to cart!');
+        });
+
+        // Shop now button click handler
+        document.querySelectorAll('.shop-now-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Redirecting to collection...');
+            });
+        });
+    </script>
+</body>
+</html>

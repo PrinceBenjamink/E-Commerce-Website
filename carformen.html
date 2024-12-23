@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 15px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .cart-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f4f4f4;
+        }
+        .total-section {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .total-section span {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .actions button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .actions .btn-update {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .actions .btn-checkout {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .actions .btn-continue {
+            background-color: #6c757d;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cart-header">Your Shopping Cart</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <img src="perfume1.jpg" alt="Perfume 1" style="width: 50px; height: 50px; margin-right: 10px;">
+                        Elegant Scent
+                    </td>
+                    <td>$50</td>
+                    <td><input type="number" value="1" min="1" style="width: 50px;"></td>
+                    <td>$50</td>
+                    <td><button style="background: red; color: white; border: none; padding: 5px 10px;">Remove</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="perfume2.jpg" alt="Perfume 2" style="width: 50px; height: 50px; margin-right: 10px;">
+                        Floral Bliss
+                    </td>
+                    <td>$70</td>
+                    <td><input type="number" value="1" min="1" style="width: 50px;"></td>
+                    <td>$70</td>
+                    <td><button style="background: red; color: white; border: none; padding: 5px 10px;">Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="total-section">
+            Subtotal: <span>$120</span>
+        </div>
+        <div class="actions">
+            <button class="btn-continue">Continue Shopping</button>
+            <button class="btn-update">Update Cart</button>
+            <button class="btn-checkout" onclick="redirectToThankYouPage()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        function redirectToThankYouPage() {
+            window.location.href = 'thank_you.html';
+        }
+    </script>
+</body>
+</html>
