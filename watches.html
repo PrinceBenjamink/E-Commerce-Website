@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -452,4 +453,460 @@
         </div>
     </footer>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Watch Collection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #f49c9c;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            /* color: rgb(11, 45, 242); */
+
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            color: #151414;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold; 
+        }
+
+        .cart-icon {
+            margin-right:100px;
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff4444;
+            color: rgb(8, 0, 0);
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .container {
+            /* width:fit-content; */
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;  
+            gap: 20px;
+            padding: 20px;
+            flex-wrap: nowrap; 
+            overflow-x: auto;  
+        }
+
+        /* Product Card Styles */
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(189, 43, 43, 0.1);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 200px; 
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            width: 200px;
+            height:250px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .product-price {
+            font-size: 1rem;
+            color: #ff4444;
+        }
+
+        /* Product Details View */
+        .product-details {
+            background-color: #dad0d0;
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .details-left img {
+            margin-top: 90px;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        .details-right {
+            margin: 50px;
+            margin-top: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 10px;
+        }
+
+        .details-right .details-name {
+            margin-top: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .details-right .details-description {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .details-right .details-price {
+            font-size: 1.5rem;
+            color: #ff4444;
+            margin: 15px 0;
+        }
+
+        /* Buttons */
+        .add-to-cart-button,
+        .back-button {
+            background-color: #aa5252;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-button:hover,
+        .back-button:hover {
+            background-color: #ff2222;
+        }
+
+        /* Target based view */
+        #productDetails1:target, #productDetails2:target, #productDetails3:target, #productDetails4:target, #productDetails5:target,
+        #productDetails6:target, #productDetails7:target, #productDetails8:target, #productDetails9:target, #productDetails10:target {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        #productList {
+            display: flex;
+            margin-top: 90px;
+        }
+
+        #productDetails1:target ~ #productList,
+        #productDetails2:target ~ #productList,
+        #productDetails3:target ~ #productList,
+        #productDetails4:target ~ #productList,
+        #productDetails5:target ~ #productList,
+        #productDetails6:target ~ #productList,
+        #productDetails7:target ~ #productList,
+        #productDetails8:target ~ #productList,
+        #productDetails9:target ~ #productList,
+        #productDetails10:target ~ #productList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        .copyright {
+            border-top: 1px solid #555;
+            
+            padding-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AlphaMen</div>
+            <div class="nav-links">
+                <a href="eprojectrough.html">Home</a>
+                <a href="categoriesformen.html">Shop</a>
+            </div>
+            <div class="cart-icon">
+                🛒
+                <span class="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Product Details Sections -->
+    <div id="productDetails1" class="product-details">
+        <div class="details-left">
+            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+        </div>
+        <div class="details-right">
+            <div class="details-name">Urban Stride Sneakers</div>
+            <div class="details-description">A perfect blend of comfort and style for everyday wear.</div>
+            <div class="details-price">$89.99</div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <a href="#productList" class="back-button">Back to Products</a>
+        </div>
+    </div>
+
+    <div id="productDetails2" class="product-details">
+        <div class="details-left">
+            <img src="shoe2.jpg" alt="Classic Leather Watch">
+        </div>
+        <div class="details-right">
+            <div class="details-name">Classic Leather Watch</div>
+            <div class="details-description">Stylish and timeless, perfect for every occasion.</div>
+            <div class="details-price">$129.99</div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <a href="#productList" class="back-button">Back to Products</a>
+        </div>
+    </div>
+    <div id="productDetails3" class="product-details">
+        <div class="details-left">
+            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+        </div>
+        <div class="details-right">
+            <div class="details-name">Sporty Fitness Watch</div>
+            <div class="details-description">A fitness-focused watch with advanced features.</div>
+            <div class="details-price">$149.99</div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <a href="#productList" class="back-button">Back to Products</a>
+        </div>
+    </div>
+    <div id="productDetails4" class="product-details">
+        <div class="details-left">
+            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+        </div>
+        <div class="details-right">
+            <div class="details-name">Sporty Fitness Watch</div>
+            <div class="details-description">A fitness-focused watch with advanced features.</div>
+            <div class="details-price">$149.99</div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <a href="#productList" class="back-button">Back to Products</a>
+        </div>
+    </div>
+    <div id="productDetails5" class="product-details">
+        <div class="details-left">
+            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+        </div>
+        <div class="details-right">
+            <div class="details-name">Sporty Fitness Watch</div>
+            <div class="details-description">A fitness-focused watch with advanced features.</div>
+            <div class="details-price">$149.99</div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <a href="#productList" class="back-button">Back to Products</a>
+        </div>
+    </div>
+    <div id="productDetails6" class="product-details">
+        <div class="details-left">
+            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+        </div>
+        <div class="details-right">
+            <div class="details-name">Sporty Fitness Watch</div>
+            <div class="details-description">A fitness-focused watch with advanced features.</div>
+            <div class="details-price">$149.99</div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <a href="#productList" class="back-button">Back to Products</a>
+        </div>
+    </div>
+    <div id="productDetails7" class="product-details">
+        <div class="details-left">
+            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+        </div>
+        <div class="details-right">
+            <div class="details-name">Sporty Fitness Watch</div>
+            <div class="details-description">A fitness-focused watch with advanced features.</div>
+            <div class="details-price">$149.99</div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <a href="#productList" class="back-button">Back to Products</a>
+        </div>
+    </div>
+    <div id="productDetails8" class="product-details">
+        <div class="details-left">
+            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+        </div>
+        <div class="details-right">
+            <div class="details-name">Sporty Fitness Watch</div>
+            <div class="details-description">A fitness-focused watch with advanced features.</div>
+            <div class="details-price">$149.99</div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <a href="#productList" class="back-button">Back to Products</a>
+        </div>
+    </div>
+    <div id="productDetails9" class="product-details">
+        <div class="details-left">
+            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+        </div>
+        <div class="details-right">
+            <div class="details-name">Sporty Fitness Watch</div>
+            <div class="details-description">A fitness-focused watch with advanced features.</div>
+            <div class="details-price">$149.99</div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <a href="#productList" class="back-button">Back to Products</a>
+        </div>
+    </div>
+    <div id="productDetails10" class="product-details">
+        <div class="details-left">
+            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+        </div>
+        <div class="details-right">
+            <div class="details-name">Sporty Fitness Watch</div>
+            <div class="details-description">A fitness-focused watch with advanced features.</div>
+            <div class="details-price">$149.99</div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <a href="#productList" class="back-button">Back to Products</a>
+        </div>
+    </div>
+    
+
+    
+   
+    <div class="container" id="productList">
+        <div class="product-card">
+            <a href="#productDetails1" style="text-decoration: none;">
+                <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+                <div class="product-name">Urban Stride Sneakers</div>
+                <div class="product-price">$89.99</div>
+            </a>
+        </div>
+        <div class="product-card">
+            <a href="#productDetails2" style="text-decoration: none;">
+                <img src="shoe2.jpg" alt="Classic Leather Watch">
+                <div class="product-name">Classic Leather Watch</div>
+                <div class="product-price">$129.99</div>
+            </a>
+        </div>
+        <div class="product-card">
+            <a href="#productDetails3" style="text-decoration: none;">
+                <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+                <div class="product-name">Urban Stride Sneakers</div>
+                <div class="product-price">$89.99</div>
+            </a>
+        </div>
+        
+        <div class="product-card">
+            <a href="#productDetails4" style="text-decoration: none;">
+                <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+                <div class="product-name">Urban Stride Sneakers</div>
+                <div class="product-price">$89.99</div>
+            </a>
+
+    </div>
+    <div class="product-card">
+        <a href="#productDetails5" style="text-decoration: none;">
+            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <div class="product-name">Urban Stride Sneakers</div>
+            <div class="product-price">$89.99</div>
+        </a>
+    </div>
+    <div class="product-card">
+        <a href="#productDetails6" style="text-decoration: none;">
+            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <div class="product-name">Urban Stride Sneakers</div>
+            <div class="product-price">$89.99</div>
+        </a>
+    </div>
+    <div class="product-card">
+        <a href="#productDetails7" style="text-decoration: none;">
+            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <div class="product-name">Urban Stride Sneakers</div>
+            <div class="product-price">$89.99</div>
+        </a>
+    </div>
+    <div class="product-card">
+        <a href="#productDetails8" style="text-decoration: none;">
+            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <div class="product-name">Urban Stride Sneakers</div>
+            <div class="product-price">$89.99</div>
+        </a>
+    </div>
+    <div class="product-card">
+        <a href="#productDetails9" style="text-decoration: none;">
+            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <div class="product-name">Urban Stride Sneakers</div>
+            <div class="product-price">$89.99</div>
+        </a>
+    </div>
+    <div class="product-card">
+        <a href="#productDetails10" style="text-decoration: none;">
+            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <div class="product-name">Urban Stride Sneakers</div>
+            <div class="product-price">$89.99</div>
+        </a>
+    </div>
+    
+    </div>
+    <footer>
+        <div class="copyright">
+            <p>&copy; 2024 AlphaMen. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+>>>>>>> 99520e4dc86d2f96d92d32686bf84ce37cf91ded
 </html>
