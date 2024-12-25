@@ -185,9 +185,15 @@
                 tableHTML += `
                     <tr>
                         <td><img src="${item.image}" alt="${item.name}"> ${item.name}</td>
+<<<<<<< HEAD
                         <td data-price="${item.price}">$${item.price}</td>
                         <td><input type="number" value="${item.quantity}" min="1" class="quantity" style="width: 60px;"></td>
                         <td class="item-total">$${(item.price * item.quantity).toFixed(2)}</td>
+=======
+                        <td data-price="${item.price}">Rs. ${item.price}</td>
+                        <td><input type="number" value="${item.quantity}" min="1" class="quantity" style="width: 60px;"></td>
+                        <td class="item-total">Rs. ${(item.price * item.quantity).toFixed(2)}</td>
+>>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
                         <td><button class="btn-remove" onclick="removeItem(${index})">Remove</button></td>
                     </tr>
                 `;
@@ -197,7 +203,11 @@
                     </tbody>
                 </table>
                 <div class="total-section" id="subtotal">
+<<<<<<< HEAD
                     Subtotal: $${calculateTotal(cartItems).toFixed(2)}
+=======
+                    Subtotal: Rs. ${calculateTotal(cartItems).toFixed(2)}
+>>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
                 </div>
             `;
 
