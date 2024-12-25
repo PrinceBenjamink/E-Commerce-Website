@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Shoes Collection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .product-price {
+            font-size: 1rem;
+            color: #ff4444;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+
+        .modal-description {
+            font-size: 1rem;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .modal-price {
+            font-size: 1.2rem;
+            color: #ff4444;
+            margin: 15px 0;
+        }
+
+        .add-to-cart-button {
+            background-color: #ff4444;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-button:hover {
+            background-color: #ff2222;
+        }
+
+        .close-button {
+            margin-top: 15px;
+            background-color: #ddd;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="product-card" onclick="openModal('Urban Stride Sneakers', 'A perfect blend of comfort and style for everyday wear.', '$89.99', 'shoe1.jpg')">
+            <img src="shoe1.jpg" alt="Watch">
+            <div class="product-name">Watch</div>
+            <div class="product-price">$89.99</div>
+        </div>
+
+        <div class="product-card" onclick="openModal('Watch', 'Crafted with premium leather for a classy look.', '$129.99', 'shoe2.jpg')">
+            <img src="shoe2.jpg" alt="Watch">
+            <div class="product-name">Watch</div>
+            <div class="product-price">$129.99</div>
+        </div>
+
+        <div class="product-card" onclick="openModal('SportFlex Running Shoes', 'Lightweight and durable for all your active needs.', '$79.99', 'shoe3.jpg')">
+            <img src="shoe3.jpg" alt="Watch">
+            <div class="product-name">Watch</div>
+            <div class="product-price">$79.99</div>
+        </div>
+
+        <div class="product-card" onclick="openModal('Classic Oxford Dress Shoes', 'Elegance and comfort combined for formal occasions.', '$149.99', 'shoe4.jpg')">
+            <img src="shoe4.jpg" alt="Watch">
+            <div class="product-name">Watch</div>
+            <div class="product-price">$149.99</div>
+        </div>
+
+        <div class="product-card" onclick="openModal('Slip-On Comfort Loafers', 'Effortless style and comfort for casual outings.', '$69.99', 'shoe5.jpg')">
+            <img src="shoe5.jpg" alt="Slip-On Comfort Loafers">
+            <div class="product-name">Watch</div>
+            <div class="product-price">$69.99</div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Product">
+            <div class="modal-title" id="modalTitle"></div>
+            <div class="modal-description" id="modalDescription"></div>
+            <div class="modal-price" id="modalPrice"></div>
+            <button class="add-to-cart-button">Add to Cart</button>
+            <button class="close-button" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('productModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalPrice = document.getElementById('modalPrice');
+        const modalImage = document.getElementById('modalImage');
+
+        function openModal(title, description, price, image) {
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            modalPrice.textContent = price;
+            modalImage.src = image;
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
