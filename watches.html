@@ -3,437 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Men's Shoes Collection</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-        }
-
-        .container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 200px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .product-card img {
-            width: 100%;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover img {
-            transform: scale(1.1);
-        }
-
-        .product-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .product-price {
-            font-size: 1rem;
-            color: #ff4444;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-content img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            margin: 10px 0;
-        }
-
-        .modal-description {
-            font-size: 1rem;
-            margin: 10px 0;
-            color: #555;
-        }
-
-        .modal-price {
-            font-size: 1.2rem;
-            color: #ff4444;
-            margin: 15px 0;
-        }
-
-        .add-to-cart-button,
-        .close-button {
-            background-color: #ff4444;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin: 5px;
-        }
-
-        .add-to-cart-button:hover,
-        .close-button:hover {
-            background-color: #ff2222;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="product-card" onclick="openModal('Urban Stride Sneakers', 'A perfect blend of comfort and style for everyday wear.', '$89.99', 'shoe1.jpg')">
-            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </div>
-
-        <div class="product-card" onclick="openModal('Leather Classic Shoes', 'Crafted with premium leather for a classy look.', '$129.99', 'shoe2.jpg')">
-            <img src="shoe2.jpg" alt="Leather Classic Shoes">
-            <div class="product-name">Leather Classic Shoes</div>
-            <div class="product-price">$129.99</div>
-        </div>
-
-        <div class="product-card" onclick="openModal('SportFlex Running Shoes', 'Lightweight and durable for all your active needs.', '$79.99', 'shoe3.jpg')">
-            <img src="shoe3.jpg" alt="SportFlex Running Shoes">
-            <div class="product-name">SportFlex Running Shoes</div>
-            <div class="product-price">$79.99</div>
-        </div>
-
-        <div class="product-card" onclick="openModal('Classic Oxford Dress Shoes', 'Elegance and comfort combined for formal occasions.', '$149.99', 'shoe4.jpg')">
-            <img src="shoe4.jpg" alt="Classic Oxford Dress Shoes">
-            <div class="product-name">Classic Oxford Dress Shoes</div>
-            <div class="product-price">$149.99</div>
-        </div>
-
-        <div class="product-card" onclick="openModal('Slip-On Comfort Loafers', 'Effortless style and comfort for casual outings.', '$69.99', 'shoe5.jpg')">
-            <img src="shoe5.jpg" alt="Slip-On Comfort Loafers">
-            <div class="product-name">Slip-On Comfort Loafers</div>
-            <div class="product-price">$69.99</div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <img id="modalImage" src="" alt="Product">
-            <div class="modal-title" id="modalTitle"></div>
-            <div class="modal-description" id="modalDescription"></div>
-            <div class="modal-price" id="modalPrice"></div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <button class="close-button" onclick="closeModal()">Close</button>
-        </div>
-    </div>
-
-    <script>
-        function openModal(title, description, price, image) {
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalDescription').textContent = description;
-            document.getElementById('modalPrice').textContent = price;
-            document.getElementById('modalImage').src = image;
-            document.getElementById('productModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('productModal').style.display = 'none';
-        }
-    </script>
-</body>
-</html>
-
-
-    <script>
-        const modal = document.getElementById('productModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalPrice = document.getElementById('modalPrice');
-        const modalImage = document.getElementById('modalImage');
-
-        function openModal(title, description, price, image) {
-            modalTitle.textContent = title;
-            modalDescription.textContent = description;
-            modalPrice.textContent = price;
-            modalImage.src = image;
-
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() {
-            modal.style.display = 'none';
-        }
-    </script>
-</body>
-</html>
-    <header>
-        <nav>
-            <div class="logo">AlphaMen</div>
-            <div class="nav-links">
-                <a href="eprojectrough.html">Home</a>
-                <a href="categoriesformen.html">Shop</a>
-            </div>
-            <div class="cart-icon">
-                🛒
-                <span class="cart-count">0</span>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Product Details Sections -->
-    <div id="productDetails1" class="product-details">
-        <div class="details-left">
-            <img src="watch1.jpg" alt="Urban Stride Sneakers">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Urban Stride Sneakers</div>
-            <div class="details-description">A perfect blend of comfort and style for everyday wear.</div>
-            <div class="details-price">$89.99</div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <a href="#productList" class="back-button">Back to Products</a>
-        </div>
-    </div>
-
-    <div id="productDetails2" class="product-details">
-        <div class="details-left">
-            <img src="watch2.jpg" alt="Classic Leather Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Classic Leather Watch</div>
-            <div class="details-description">Stylish and timeless, perfect for every occasion.</div>
-            <div class="details-price">$129.99</div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <a href="#productList" class="back-button">Back to Products</a>
-        </div>
-    </div>
-    <div id="productDetails3" class="product-details">
-        <div class="details-left">
-            <img src="watch3.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <a href="#productList" class="back-button">Back to Products</a>
-        </div>
-    </div>
-    <div id="productDetails4" class="product-details">
-        <div class="details-left">
-            <img src="watch4.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <a href="#productList" class="back-button">Back to Products</a>
-        </div>
-    </div>
-    <div id="productDetails5" class="product-details">
-        <div class="details-left">
-            <img src="watch5.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <a href="#productList" class="back-button">Back to Products</a>
-        </div>
-    </div>
-    <div id="productDetails6" class="product-details">
-        <div class="details-left">
-            <img src="watch6.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <a href="#productList" class="back-button">Back to Products</a>
-        </div>
-    </div>
-    <div id="productDetails7" class="product-details">
-        <div class="details-left">
-            <img src="watch7.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <a href="#productList" class="back-button">Back to Products</a>
-        </div>
-    </div>
-    <div id="productDetails8" class="product-details">
-        <div class="details-left">
-            <img src="watch8.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <a href="#productList" class="back-button">Back to Products</a>
-        </div>
-    </div>
-    <div id="productDetails9" class="product-details">
-        <div class="details-left">
-            <img src="watch9.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <a href="#productList" class="back-button">Back to Products</a>
-        </div>
-    </div>
-    <div id="productDetails10" class="product-details">
-        <div class="details-left">
-            <img src="watch10.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-            <button class="add-to-cart-button">Add to Cart</button>
-            <a href="#productList" class="back-button">Back to Products</a>
-        </div>
-    </div>
-    
-
-    
-   
-    <div class="container" id="productList">
-        <div class="product-card">
-            <a href="#productDetails1" style="text-decoration: none;">
-                <img src="watch1.jpg" alt="Urban Stride Sneakers">
-                <div class="product-name">Urban Stride Sneakers</div>
-                <div class="product-price">$89.99</div>
-            </a>
-        </div>
-        <div class="product-card">
-            <a href="#productDetails2" style="text-decoration: none;">
-                <img src="watch2.jpg" alt="Classic Leather Watch">
-                <div class="product-name">Classic Leather Watch</div>
-                <div class="product-price">$129.99</div>
-            </a>
-        </div>
-        <div class="product-card">
-            <a href="#productDetails3" style="text-decoration: none;">
-                <img src="watch3.jpg" alt="Urban Stride Sneakers">
-                <div class="product-name">Urban Stride Sneakers</div>
-                <div class="product-price">$89.99</div>
-            </a>
-        </div>
-        
-        <div class="product-card">
-            <a href="#productDetails4" style="text-decoration: none;">
-                <img src="watch4.jpg" alt="Urban Stride Sneakers">
-                <div class="product-name">Urban Stride Sneakers</div>
-                <div class="product-price">$89.99</div>
-            </a>
-
-    </div>
-    <div class="product-card">
-        <a href="#productDetails5" style="text-decoration: none;">
-            <img src="watch5.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    <div class="product-card">
-        <a href="#productDetails6" style="text-decoration: none;">
-            <img src="watch6.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    <div class="product-card">
-        <a href="#productDetails7" style="text-decoration: none;">
-            <img src="watch7.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    <div class="product-card">
-        <a href="#productDetails8" style="text-decoration: none;">
-            <img src="watch8.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    <div class="product-card">
-        <a href="#productDetails9" style="text-decoration: none;">
-            <img src="watch9.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    <div class="product-card">
-        <a href="#productDetails10" style="text-decoration: none;">
-            <img src="watch10.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    
-    </div>
-    <footer>
-        <div class="copyright">
-            <p>&copy; 2024 AlphaMen. All rights reserved.</p>
-        </div>
-    </footer>
-</body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Men's Watch Collection</title>
     <style>
         body {
@@ -443,6 +12,7 @@
             background-color: #f8f8f8;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
@@ -456,8 +26,6 @@
         }
 
         nav {
-            /* color: rgb(11, 45, 242); */
-
             font-size: 20px;
             font-weight: bold;
             display: flex;
@@ -474,22 +42,20 @@
         .nav-links {
             display: flex;
             gap: 2rem;
-            
         }
 
         .nav-links a {
             text-decoration: none;
             color: #333;
-            font-weight: bold; 
+            font-weight: bold;
         }
 
         .cart-icon {
-            margin-right:100px;
             position: relative;
             cursor: pointer;
             font-size: 1.5rem;
-            text-decoration: none;
             color: #333;
+            margin-right: 100px;
         }
 
         .cart-count {
@@ -504,17 +70,17 @@
         }
 
         .container {
-            /* width:fit-content; */
-            margin-top: 100px;
+            margin-top: 120px;
             display: flex;
             justify-content: center;  
             gap: 20px;
             padding: 20px;
             flex-wrap: nowrap; 
             overflow-x: auto;  
+            transition: all 0.3s ease;
+            flex-grow: 1;
         }
 
-        /* Product Card Styles */
         .product-card {
             background: white;
             border-radius: 10px;
@@ -525,7 +91,7 @@
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-width: 200px; 
+            min-width: 200px;
         }
 
         .product-card:hover {
@@ -535,7 +101,7 @@
 
         .product-card img {
             width: 200px;
-            height:250px;
+            height: 250px;
             border-radius: 10px;
             transition: transform 0.3s ease;
         }
@@ -555,7 +121,6 @@
             color: #ff4444;
         }
 
-        /* Product Details View */
         .product-details {
             background-color: #dad0d0;
             display: none;
@@ -601,7 +166,6 @@
             margin: 15px 0;
         }
 
-        /* Buttons */
         .add-to-cart-button,
         .back-button {
             background-color: #aa5252;
@@ -620,43 +184,82 @@
             background-color: #ff2222;
         }
 
-        /* Target based view */
-        #productDetails1:target, #productDetails2:target, #productDetails3:target, #productDetails4:target, #productDetails5:target,
-        #productDetails6:target, #productDetails7:target, #productDetails8:target, #productDetails9:target, #productDetails10:target {
+        #productDetails1:target,
+        #productDetails2:target,
+        #productDetails3:target,
+        #productDetails4:target,
+        #productDetails5:target,
+        #productDetails6:target,
+        #productDetails7:target,
+        #productDetails8:target,
+        #productDetails9:target,
+        #productDetails10:target {
             display: flex;
             margin-top: 20px;
         }
 
-        #productList {
-            display: flex;
-            margin-top: 90px;
+        .cart-popup {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            min-width: 300px;
         }
 
-        #productDetails1:target ~ #productList,
-        #productDetails2:target ~ #productList,
-        #productDetails3:target ~ #productList,
-        #productDetails4:target ~ #productList,
-        #productDetails5:target ~ #productList,
-        #productDetails6:target ~ #productList,
-        #productDetails7:target ~ #productList,
-        #productDetails8:target ~ #productList,
-        #productDetails9:target ~ #productList,
-        #productDetails10:target ~ #productList {
+        .cart-item {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
         }
+
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-price {
+            color: #ff4444;
+            font-weight: bold;
+        }
+
+        .remove-item {
+            color: #ff4444;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .cart-total {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid #eee;
+            font-weight: bold;
+            text-align: right;
+        }
+
         footer {
             background-color: #333;
             color: white;
             padding: 2rem 5%;
             text-align: center;
+            margin-top: auto;
         }
 
         .copyright {
             border-top: 1px solid #555;
-            
             padding-top: 1rem;
         }
     </style>
@@ -669,17 +272,24 @@
                 <a href="eprojectrough.html">Home</a>
                 <a href="categoriesformen.html">Shop</a>
             </div>
-            <div class="cart-icon">
+            <div class="cart-icon" onclick="toggleCart()">
                 🛒
                 <span class="cart-count">0</span>
             </div>
         </nav>
     </header>
+    <div class="cart-popup" id="cartPopup">
+        <h3>Shopping Cart</h3>
+        <div id="cartItems"></div>
+        <div class="cart-total">
+            Total: $<span id="cartTotal">0.00</span>
+        </div>
+    </div>
 
     <!-- Product Details Sections -->
     <div id="productDetails1" class="product-details">
         <div class="details-left">
-            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <img src="Image/watch1.jpg" alt="Urban Stride Sneakers">
         </div>
         <div class="details-right">
             <div class="details-name">Urban Stride Sneakers</div>
@@ -692,7 +302,7 @@
 
     <div id="productDetails2" class="product-details">
         <div class="details-left">
-            <img src="shoe2.jpg" alt="Classic Leather Watch">
+            <img src="Image/watch2.jpg" alt="Classic Leather Watch">
         </div>
         <div class="details-right">
             <div class="details-name">Classic Leather Watch</div>
@@ -704,7 +314,7 @@
     </div>
     <div id="productDetails3" class="product-details">
         <div class="details-left">
-            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+            <img src="Image/watch3.jpg" alt="Sporty Fitness Watch">
         </div>
         <div class="details-right">
             <div class="details-name">Sporty Fitness Watch</div>
@@ -716,7 +326,7 @@
     </div>
     <div id="productDetails4" class="product-details">
         <div class="details-left">
-            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+            <img src="Image/watch4.jpg" alt="Sporty Fitness Watch">
         </div>
         <div class="details-right">
             <div class="details-name">Sporty Fitness Watch</div>
@@ -728,7 +338,7 @@
     </div>
     <div id="productDetails5" class="product-details">
         <div class="details-left">
-            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+            <img src="Image/watch5.jpg" alt="Sporty Fitness Watch">
         </div>
         <div class="details-right">
             <div class="details-name">Sporty Fitness Watch</div>
@@ -740,10 +350,10 @@
     </div>
     <div id="productDetails6" class="product-details">
         <div class="details-left">
-            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+            <img src="Image/watch6.jpg" alt="Sporty Fitness Watch">
         </div>
         <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
+            <div class="details-name">Sporty Fitness Watchl</div>
             <div class="details-description">A fitness-focused watch with advanced features.</div>
             <div class="details-price">$149.99</div>
             <button class="add-to-cart-button">Add to Cart</button>
@@ -752,7 +362,7 @@
     </div>
     <div id="productDetails7" class="product-details">
         <div class="details-left">
-            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+            <img src="Image/watch7.jpg" alt="Sporty Fitness Watch">
         </div>
         <div class="details-right">
             <div class="details-name">Sporty Fitness Watch</div>
@@ -764,7 +374,7 @@
     </div>
     <div id="productDetails8" class="product-details">
         <div class="details-left">
-            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+            <img src="Image/watch8.jpg" alt="Sporty Fitness Watch">
         </div>
         <div class="details-right">
             <div class="details-name">Sporty Fitness Watch</div>
@@ -776,7 +386,7 @@
     </div>
     <div id="productDetails9" class="product-details">
         <div class="details-left">
-            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+            <img src="Image/watch9.jpg" alt="Sporty Fitness Watch">
         </div>
         <div class="details-right">
             <div class="details-name">Sporty Fitness Watch</div>
@@ -788,7 +398,7 @@
     </div>
     <div id="productDetails10" class="product-details">
         <div class="details-left">
-            <img src="shoe3.jpg" alt="Sporty Fitness Watch">
+            <img src="Image/watch10.jpg" alt="Sporty Fitness Watch">
         </div>
         <div class="details-right">
             <div class="details-name">Sporty Fitness Watch</div>
@@ -805,21 +415,21 @@
     <div class="container" id="productList">
         <div class="product-card">
             <a href="#productDetails1" style="text-decoration: none;">
-                <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+                <img src="Image/watch1.jpg" alt="Urban Stride Sneakers">
                 <div class="product-name">Urban Stride Sneakers</div>
                 <div class="product-price">$89.99</div>
             </a>
         </div>
         <div class="product-card">
             <a href="#productDetails2" style="text-decoration: none;">
-                <img src="shoe2.jpg" alt="Classic Leather Watch">
+                <img src="Image/watch2.jpg" alt="Classic Leather Watch">
                 <div class="product-name">Classic Leather Watch</div>
                 <div class="product-price">$129.99</div>
             </a>
         </div>
         <div class="product-card">
             <a href="#productDetails3" style="text-decoration: none;">
-                <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+                <img src="Image/watch3.jpg" alt="Urban Stride Sneakers">
                 <div class="product-name">Urban Stride Sneakers</div>
                 <div class="product-price">$89.99</div>
             </a>
@@ -827,7 +437,7 @@
         
         <div class="product-card">
             <a href="#productDetails4" style="text-decoration: none;">
-                <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+                <img src="Image/watch4.jpg" alt="Urban Stride Sneakers">
                 <div class="product-name">Urban Stride Sneakers</div>
                 <div class="product-price">$89.99</div>
             </a>
@@ -835,42 +445,42 @@
     </div>
     <div class="product-card">
         <a href="#productDetails5" style="text-decoration: none;">
-            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <img src="Image/watch5.jpg" alt="Urban Stride Sneakers">
             <div class="product-name">Urban Stride Sneakers</div>
             <div class="product-price">$89.99</div>
         </a>
     </div>
     <div class="product-card">
         <a href="#productDetails6" style="text-decoration: none;">
-            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <img src="Image/watch6.jpg" alt="Urban Stride Sneakers">
             <div class="product-name">Urban Stride Sneakers</div>
             <div class="product-price">$89.99</div>
         </a>
     </div>
     <div class="product-card">
         <a href="#productDetails7" style="text-decoration: none;">
-            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <img src="Image/watch7.jpg" alt="Urban Stride Sneakers">
             <div class="product-name">Urban Stride Sneakers</div>
             <div class="product-price">$89.99</div>
         </a>
     </div>
     <div class="product-card">
         <a href="#productDetails8" style="text-decoration: none;">
-            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <img src="Image/watch8.jpg" alt="Urban Stride Sneakers">
             <div class="product-name">Urban Stride Sneakers</div>
             <div class="product-price">$89.99</div>
         </a>
     </div>
     <div class="product-card">
         <a href="#productDetails9" style="text-decoration: none;">
-            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <img src="Image/watch9.jpg" alt="Urban Stride Sneakers">
             <div class="product-name">Urban Stride Sneakers</div>
             <div class="product-price">$89.99</div>
         </a>
     </div>
     <div class="product-card">
         <a href="#productDetails10" style="text-decoration: none;">
-            <img src="shoe1.jpg" alt="Urban Stride Sneakers">
+            <img src="Image/watch10.jpg" alt="Urban Stride Sneakers">
             <div class="product-name">Urban Stride Sneakers</div>
             <div class="product-price">$89.99</div>
         </a>
@@ -882,7 +492,48 @@
             <p>&copy; 2024 AlphaMen. All rights reserved.</p>
         </div>
     </footer>
-</body>
->>>>>>> 99520e4dc86d2f96d92d32686bf84ce37cf91ded
-</html>
->>>>>>> 1398d335578f29944e9a3bdaec4bb8f38049f179
+
+    <script>
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+function toggleCart() {
+    // Redirect to cart page when cart icon is clicked
+    window.location.href = 'carformen.html';
+}
+
+function addToCart(event) {
+    const detailsContainer = event.target.closest('.details-right');
+    const item = {
+        name: detailsContainer.querySelector('.details-name').textContent,
+        price: parseFloat(detailsContainer.querySelector('.details-price').textContent.replace('$', '')),
+        image: detailsContainer.parentElement.querySelector('.details-left img').src,
+        quantity: 1
+    };
+    
+    cartItems.push(item);
+    // Save to localStorage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    updateCartCount();
+    // Just show the alert without redirecting
+    alert('Item added to cart!');
+}
+
+function updateCartCount() {
+    const cartCount = document.querySelector('.cart-count');
+    if (cartCount) {
+        cartCount.textContent = cartItems.length;
+    }
+}
+
+// Initialize cart count when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    updateCartCount();
+    
+    // Add event listeners to all "Add to Cart" buttons
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', addToCart);
+    });
+});
+    </script>
+</head>

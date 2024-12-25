@@ -111,6 +111,15 @@
             border: none;
             border-radius: 5px;
         }
+        .empty-cart-message {
+            text-align: center;
+            font-size: 24px;
+            color: #666;
+            padding: 50px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            margin: 20px 0;
+        }        
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -138,60 +147,89 @@
     </header>
     <div class="container">
         <div class="cart-header">Your Shopping Cart</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="cart-body">
-                <tr>
-                    <td><img src="perfume1.jpg" alt="Perfume 1"> Elegant Scent</td>
-                    <td data-price="50">$50</td>
-                    <td><input type="number" value="1" min="1" class="quantity" style="width: 60px;"></td>
-                    <td class="item-total">$50</td>
-                    <td><button class="btn-remove">Remove</button></td>
-                </tr>
-                <tr>
-                    <td><img src="perfume2.jpg" alt="Perfume 2"> Floral Bliss</td>
-                    <td data-price="70">$70</td>
-                    <td><input type="number" value="1" min="1" class="quantity" style="width: 60px;"></td>
-                    <td class="item-total">$70</td>
-                    <td><button class="btn-remove">Remove</button></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="total-section" id="subtotal">Subtotal: $120</div>
+        <div id="cart-content">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
         <div class="actions">
             <button class="btn-continue" onclick="window.location.href='eprojectrough.html'">Continue Shopping</button>
-            <button class="btn-update">Update Cart</button>
+            <button class="btn-update" id="updateCart">Update Cart</button>
             <button class="btn-checkout" onclick="redirectToThankYouPage()">Proceed to Checkout</button>
         </div>
     </div>
+
     <script>
-        function updateSubtotal() {
-            let subtotal = 0;
-            document.querySelectorAll('#cart-body tr').forEach(row => {
-                const price = parseFloat(row.querySelector('[data-price]').dataset.price);
-                const quantity = parseInt(row.querySelector('.quantity').value);
-                const total = price * quantity;
-                row.querySelector('.item-total').textContent = `$${total.toFixed(2)}`;
-                subtotal += total;
+        function loadCart() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartContent = document.getElementById('cart-content');
+            
+            if (cartItems.length === 0) {
+                cartContent.innerHTML = '<div class="empty-cart-message">YOUR CART IS EMPTY</div>';
+                return;
+            }
+
+            let tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            cartItems.forEach((item, index) => {
+                tableHTML += `
+                    <tr>
+                        <td><img src="${item.image}" alt="${item.name}"> ${item.name}</td>
+                        <td data-price="${item.price}">$${item.price}</td>
+                        <td><input type="number" value="${item.quantity}" min="1" class="quantity" style="width: 60px;"></td>
+                        <td class="item-total">$${(item.price * item.quantity).toFixed(2)}</td>
+                        <td><button class="btn-remove" onclick="removeItem(${index})">Remove</button></td>
+                    </tr>
+                `;
             });
-            document.getElementById('subtotal').textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+
+            tableHTML += `
+                    </tbody>
+                </table>
+                <div class="total-section" id="subtotal">
+                    Subtotal: $${calculateTotal(cartItems).toFixed(2)}
+                </div>
+            `;
+
+            cartContent.innerHTML = tableHTML;
         }
 
-        document.querySelector('.btn-update').addEventListener('click', updateSubtotal);
+        function calculateTotal(items) {
+            return items.reduce((total, item) => total + (item.price * item.quantity), 0);
+        }
 
-        document.querySelectorAll('.btn-remove').forEach(button => {
-            button.addEventListener('click', function () {
-                this.closest('tr').remove();
-                updateSubtotal();
+        function removeItem(index) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            loadCart();
+        }
+
+        function updateCart() {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const quantityInputs = document.querySelectorAll('.quantity');
+            
+            quantityInputs.forEach((input, index) => {
+                cartItems[index].quantity = parseInt(input.value);
             });
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            loadCart();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
+            document.getElementById('updateCart').addEventListener('click', updateCart);
         });
 
         function redirectToThankYouPage() {

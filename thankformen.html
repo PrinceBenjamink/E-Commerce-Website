@@ -17,7 +17,7 @@
             background: #fff;
             padding: 20px;
             border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             display: inline-block;
             text-align: center;
         }
@@ -28,18 +28,78 @@
             font-size: 18px;
             color: #555;
         }
-        .btn-download {
+        .btn {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
+            text-decoration: none;
+            margin: 5px;
+        }
+        .btn-show-bill {
             background-color: #007bff;
             color: #fff;
-            text-decoration: none;
+        }
+        .btn-show-bill:hover {
+            background-color: #0056b3;
+        }
+        .btn-download {
+            background-color: #28a745;
+            color: #fff;
         }
         .btn-download:hover {
-            background-color: #0056b3;
+            background-color: #218838;
+        }
+        .btn-print {
+            background-color: #ffc107;
+            color: #fff;
+        }
+        .btn-print:hover {
+            background-color: #e0a800;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center; /* Center the Show the Bill button */
+            align-items: center;
+            gap: 10px;
+        }
+        .bill {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+        .bill h2 {
+            text-align: center;
+            color: #333;
+        }
+        .bill table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .bill table th, .bill table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .btn-close {
+            background-color: #dc3545; /* Red background for the Close button */
+            color: #fff;
+            float: right; /* Align to the right */
+        }
+        .btn-close:hover {
+            background-color: #c82333;
+        }
+        .btn-container-left {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
         }
     </style>
 </head>
@@ -47,10 +107,101 @@
     <div class="container">
         <h1>Thank You for Shopping with Us!</h1>
         <p>Your order has been successfully placed. We appreciate your business and hope to serve you again soon.</p>
-        <a href="#" class="btn-download" id="downloadInvoice">Download Invoice</a>
+        <div class="btn-container">
+            <button class="btn btn-show-bill" id="showBillButton">Show the Bill</button>
+        </div>
+        <div class="bill" id="billDetails">
+            <h2>Your Bill</h2>
+            <div><strong>Customer Details:</strong> John Doe, john@example.com</div>
+            <div><strong>Purchase Time:</strong> December 24, 2024, 2:00 PM</div>
+            <div><strong>Payment Method:</strong> Credit Card</div>
+            <div><strong>Website:</strong> Your Website Name</div>
+            <table id="billTable">
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td>Example Item 1</td>
+                    <td>2</td>
+                    <td>$10</td>
+                    <td>$20</td>
+                </tr>
+                <tr>
+                    <td>Example Item 2</td>
+                    <td>1</td>
+                    <td>$15</td>
+                    <td>$15</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: right;"><strong>Grand Total</strong></td>
+                    <td><strong>$35</strong></td>
+                </tr>
+            </table>
+            <div class="btn-container-left">
+                <button class="btn btn-download" id="downloadInvoice">Download Invoice</button>
+                <button class="btn btn-print" onclick="window.print()">Print Invoice</button>
+                <button class="btn btn-close" id="closeBillButton" style="display: none;">Close</button>
+            </div>
+        </div>
     </div>
 
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script>
+        const showBillButton = document.getElementById('showBillButton');
+        const closeBillButton = document.getElementById('closeBillButton');
+        const billDetails = document.getElementById('billDetails');
+        const downloadButton = document.getElementById('downloadInvoice');
+
+        showBillButton.addEventListener('click', () => {
+            billDetails.style.display = 'block';
+            showBillButton.style.display = 'none';
+            closeBillButton.style.display = 'inline-block';
+        });
+
+        closeBillButton.addEventListener('click', () => {
+            billDetails.style.display = 'none';
+            showBillButton.style.display = 'inline-block';
+            closeBillButton.style.display = 'none';
+        });
+
+        downloadButton.addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Adding Title and Customer Details
+            doc.setFontSize(18);
+            doc.text('Invoice', 105, 15, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text('Customer Details: John Doe, john@example.com', 10, 30);
+            doc.text('Purchase Time: December 24, 2024, 2:00 PM', 10, 40);
+            doc.text('Payment Method: Credit Card', 10, 50);
+            doc.text('Website: Your Website Name', 10, 60);
+
+            // Adding Table Data
+            const tableData = [
+                ['Item', 'Quantity', 'Price', 'Total'],
+                ['Example Item 1', '2', '$10', '$20'],
+                ['Example Item 2', '1', '$15', '$15'],
+                ['', '', 'Grand Total', '$35'],
+            ];
+
+            doc.autoTable({
+                head: [tableData[0]], // Table header
+                body: tableData.slice(1), // Table body
+                startY: 70,
+                theme: 'grid',
+                headStyles: { fillColor: [40, 167, 69], textColor: [255, 255, 255] },
+                bodyStyles: { textColor: [0, 0, 0] },
+            });
+
+            // Save the PDF
+            doc.save('invoice.pdf');
+        });
     </script>
 </body>
 </html>
+
