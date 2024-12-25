@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart - AlphaMen</title>
     <style>
-        /* Styles as provided in the original code */
         * {
             margin: 0;
             padding: 0;
@@ -14,6 +13,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
+            animation: fadeIn 1s ease-in-out;
         }
         header {
             background: #fff;
@@ -22,12 +22,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         header a {
             text-decoration: none;
             color: #333;
             font-weight: bold;
             margin: 0 10px;
+            transition: color 0.3s ease;
         }
         header a:hover {
             color: #007bff;
@@ -39,6 +43,7 @@
             background: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            animation: slideIn 1s ease-out;
         }
         .cart-header {
             font-size: 28px;
@@ -49,6 +54,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            animation: fadeIn 1s ease-in-out;
         }
         table th, table td {
             padding: 15px;
@@ -81,6 +87,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .actions button:hover {
+            transform: translateY(-3px);
         }
         .btn-continue {
             background-color: #6c757d;
@@ -100,6 +110,24 @@
             padding: 5px 10px;
             border: none;
             border-radius: 5px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -124,20 +152,20 @@
                 <tr>
                     <td><img src="perfume1.jpg" alt="Perfume 1"> Elegant Scent</td>
                     <td data-price="50">$50</td>
-                    <td><input type="number" value="1" min="1" style="width: 60px;" class="quantity"></td>
+                    <td><input type="number" value="1" min="1" class="quantity" style="width: 60px;"></td>
                     <td class="item-total">$50</td>
                     <td><button class="btn-remove">Remove</button></td>
                 </tr>
                 <tr>
                     <td><img src="perfume2.jpg" alt="Perfume 2"> Floral Bliss</td>
                     <td data-price="70">$70</td>
-                    <td><input type="number" value="1" min="1" style="width: 60px;" class="quantity"></td>
+                    <td><input type="number" value="1" min="1" class="quantity" style="width: 60px;"></td>
                     <td class="item-total">$70</td>
                     <td><button class="btn-remove">Remove</button></td>
                 </tr>
             </tbody>
         </table>
-        <div class="total-section">Subtotal: $120</div>
+        <div class="total-section" id="subtotal">Subtotal: $120</div>
         <div class="actions">
             <button class="btn-continue" onclick="window.location.href='eprojectrough.html'">Continue Shopping</button>
             <button class="btn-update">Update Cart</button>
@@ -145,8 +173,7 @@
         </div>
     </div>
     <script>
-        // Update subtotal when cart is updated
-        document.querySelector('.btn-update').addEventListener('click', function () {
+        function updateSubtotal() {
             let subtotal = 0;
             document.querySelectorAll('#cart-body tr').forEach(row => {
                 const price = parseFloat(row.querySelector('[data-price]').dataset.price);
@@ -155,14 +182,15 @@
                 row.querySelector('.item-total').textContent = `$${total.toFixed(2)}`;
                 subtotal += total;
             });
-            document.querySelector('.total-section').textContent = `Subtotal: $${subtotal.toFixed(2)}`;
-        });
+            document.getElementById('subtotal').textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+        }
 
-        // Remove item from cart
+        document.querySelector('.btn-update').addEventListener('click', updateSubtotal);
+
         document.querySelectorAll('.btn-remove').forEach(button => {
             button.addEventListener('click', function () {
                 this.closest('tr').remove();
-                document.querySelector('.btn-update').click(); // Update subtotal after removal
+                updateSubtotal();
             });
         });
 

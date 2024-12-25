@@ -181,7 +181,7 @@
         }
 
         .shop-now-btn {
-            background-color: #ff4444;
+            background-color: #e99191;
             color: white;
             padding: 0.8rem 1.5rem;
             border: none;
@@ -191,7 +191,7 @@
         }
 
         .shop-now-btn:hover {
-            background-color: #ff2222;
+            background-color: #ed8f3d;
         }
 
         /* Footer */
@@ -246,12 +246,11 @@
 <body>
     <header>
         <nav>
-            <a href="#" class="logo">TheBroBox</a>
+            <a href="#" class="logo">AplhaMen</a>
             <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#shop">Shop</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <a href="eprojectrough.html">Home</a>
+                <a href="categoriesformen.html">Shop</a>
+               
             </div>
             <div class="cart-icon">
                 🛒
@@ -265,11 +264,12 @@
 
         <div class="categories-grid">
             <div class="category-card">
-                <img src="/api/placeholder/400/400" alt="Women's Fashion" class="category-image">
+                <a href="watches.html">
+                <img src="abcd.jpg" alt="Watches" class="category-image">
                 <div class="category-overlay">
-                    <h2 class="category-title">Women's Fashion</h2>
-                    <p class="category-description">Discover the latest trends in women's clothing</p>
-                </div>
+                    <h2 class="category-title">Watches</h2>
+                    <p class="category-description">Discover the latest trends</p>
+                </div></a>
             </div>
             <div class="category-card">
                 <img src="/api/placeholder/400/400" alt="Men's Fashion" class="category-image">
@@ -290,6 +290,7 @@
                 <div class="category-overlay">
                     <h2 class="category-title">Footwear</h2>
                     <p class="category-description">Step out in style with our shoe collection</p>
+                    <a href="shoesformen.html"></a>
                 </div>
             </div>
         </div>
@@ -316,66 +317,9 @@
     </main>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>About Us</h3>
-                <ul>
-                    <li><a href="#our-story">Our Story</a></li>
-                    <li><a href="#careers">Careers</a></li>
-                    <li><a href="#press">Press</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Customer Service</h3>
-                <ul>
-                    <li><a href="#contact">Contact Us</a></li>
-                    <li><a href="#shipping">Shipping Info</a></li>
-                    <li><a href="#returns">Returns & Exchanges</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Connect With Us</h3>
-                <ul>
-                    <li><a href="#facebook">Facebook</a></li>
-                    <li><a href="#instagram">Instagram</a></li>
-                    <li><a href="#twitter">Twitter</a></li>
-                </ul>
-            </div>
-        </div>
         <div class="copyright">
             <p>&copy; 2024 StyleMart. All rights reserved.</p>
         </div>
     </footer>
-
-    <script>
-        // Add hover effect to category cards
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-5px)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-            });
-        });
-
-        // Cart functionality
-        const cartIcon = document.querySelector('.cart-icon');
-        const cartCount = document.querySelector('.cart-count');
-        let count = 0;
-
-        cartIcon.addEventListener('click', () => {
-            count++;
-            cartCount.textContent = count;
-            alert('Item added to cart!');
-        });
-
-        // Shop now button click handler
-        document.querySelectorAll('.shop-now-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                alert('Redirecting to collection...');
-            });
-        });
-    </script>
 </body>
 </html>
