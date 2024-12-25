@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleMart - Categories</title>
+    <title>AlphaMen - Categories</title>
     <style>
         * {
             margin: 0;
@@ -84,6 +84,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
+           
         }
 
         .category-card {
@@ -250,52 +251,84 @@
             <div class="nav-links">
                 <a href="eprojectrough.html">Home</a>
                 <a href="categoriesformen.html">Shop</a>
+                <a href="carformen.html">Cart</a>
                
             </div>
-            <div class="cart-icon">
+            <a href="carformen.html" class="cart-icon" onclick="toggleCart()">
+
                 🛒
                 <span class="cart-count">0</span>
-            </div>
+            </a>
         </nav>
     </header>
+    
 
     <main class="main-content">
         <h1 class="page-title">Shop by Category</h1>
 
         <div class="categories-grid">
             <div class="category-card">
-                <a href="watches.html">
-                <img src="abcd.jpg" alt="Watches" class="category-image">
+                <a href="shirt.html">
+                <img src="image/shirt1.jpg" alt="Shirts" class="category-image">
                 <div class="category-overlay">
-                    <h2 class="category-title">Watches</h2>
+                    <h2 class="category-title">Shirts</h2>
                     <p class="category-description">Discover the latest trends</p>
                 </div></a>
             </div>
             <div class="category-card">
-                <img src="/api/placeholder/400/400" alt="Men's Fashion" class="category-image">
+                <a href="perfume.html">
+                <img src="Image/perfume1.jpg" alt="Perfumes" class="category-image">
                 <div class="category-overlay">
-                    <h2 class="category-title">Men's Fashion</h2>
-                    <p class="category-description">Stylish collection for modern men</p>
-                </div>
+                    <h2 class="category-title">Perfumes</h2>
+                    <p class="category-description">Complete your look with our perfumes</p>
+                </div></a>
             </div>
             <div class="category-card">
-                <img src="/api/placeholder/400/400" alt="Accessories" class="category-image">
+                <a href="watches.html">
+                <img src="Image/watch1.jpg" alt="watches" class="category-image">
                 <div class="category-overlay">
-                    <h2 class="category-title">Accessories</h2>
-                    <p class="category-description">Complete your look with our accessories</p>
-                </div>
+                    <h2 class="category-title">watches</h2>
+                    <p class="category-description">Step out in style with our shoe collection</p>
+                </div></a>
             </div>
             <div class="category-card">
-                <img src="/api/placeholder/400/400" alt="Footwear" class="category-image">
+                <a href="shoesformen.html">
+                <img src="Image/shoe3.jpg" alt="Footwear" class="category-image">
                 <div class="category-overlay">
                     <h2 class="category-title">Footwear</h2>
                     <p class="category-description">Step out in style with our shoe collection</p>
-                    <a href="shoesformen.html"></a>
-                </div>
+                    
+                </div></a>
+            </div>
+            <div class="category-card">
+                <a href="shirt.html">
+                <img src="Image/pant1.jpg" alt="Men's Fashion" class="category-image">
+                <div class="category-overlay">
+                    <h2 class="category-title">Pants</h2>
+                    <p class="category-description">Stylish collection for modern men</p>
+                </div></a>
+            </div>
+            <div class="category-card">
+                <a href="wallet.html">
+
+                <img src="Image/wallet7.jpg" alt="Wallet" class="category-image">
+                <div class="category-overlay">
+                    <h2 class="category-title">wallet</h2>
+                    <p class="category-description">Step out in style with our shoe collection</p>
+                </div></a>
+            </div>
+            <div class="category-card">
+                <a href="belt.html">
+                <img src="Image/belt1.jpg" alt="Belt" class="category-image">
+                <div class="category-overlay">
+                    <h2 class="category-title">Belt</h2>
+                    <p class="category-description">Step out in style with our belt collection</p>
+                   
+                </div></a>
             </div>
         </div>
 
-        <section class="featured-categories">
+        <!-- <section class="featured-categories">
             <h2 class="featured-title">Featured Collections</h2>
             <div class="featured-grid">
                 <div class="featured-category">
@@ -313,7 +346,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
     </main>
 
     <footer>
@@ -321,5 +354,12 @@
             <p>&copy; 2024 StyleMart. All rights reserved.</p>
         </div>
     </footer>
+    <div class="cart-popup" id="cartPopup">
+        <h3>Shopping Cart</h3>
+        <div id="cartItems"></div>
+        <div class="cart-total">
+            Total: $<span id="cartTotal">0.00</span>
+        </div>
+    </div>
 </body>
 </html>

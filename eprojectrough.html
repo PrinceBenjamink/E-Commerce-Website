@@ -76,7 +76,7 @@
         .hero {
             margin-top: 4rem;
             height: 80vh;
-            background-image: url('abcd.jpg');
+            background-image: url('Image/abcd.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -175,7 +175,7 @@
 
         .product-image {
             width: 100%;
-            height: auto;
+            height: 350px;
         }
 
         .product-title {
@@ -224,8 +224,9 @@
                 <a href="eprojectrough.html">Home</a>
                 <a href="categoriesformen.html">Shop</a>
                 <a href="Loginformen.html">Login</a>
+                <a href="carformen.html">Cart</a>
             </div>
-            <a href="carformen.html" class="cart-icon">
+            <a href="carformen.html" class="cart-icon" onclick="toggleCart()">
                 🛒
                 <span class="cart-count">0</span>
             </a>
@@ -243,25 +244,25 @@
         <div class="products-grid">
             <div class="product-card">
                 <a href="shirt.html">
-                    <img src="shirt.jpg" alt="Shirt" class="product-image">
+                    <img src="Image/shirt5.jpg" alt="Shirt" class="product-image">
                     <div class="product-title">Shirt</div>
                 </a>
             </div>
             <div class="product-card">
                 <a href="watches.html">
-                    <img src="Shoe1.jpg" alt="Watch" class="product-image">
+                    <img src="Image/watch3.jpg" alt="Watch" class="product-image">
                     <div class="product-title">Watch</div>
                 </a>
             </div>
             <div class="product-card">
-                <a href="sneakers.html">
-                    <img src="sneakers.jpg" alt="Sneakers" class="product-image">
+                <a href="shoesformen.html">
+                    <img src="Image/shoe3.jpg" alt="Sneakers" class="product-image">
                     <div class="product-title">Athletic Sneakers</div>
                 </a>
             </div>
             <div class="product-card">
                 <a href="perfume.html">
-                    <img src="perfume.jpg" alt="Perfume" class="product-image">
+                    <img src="Image/perfume3.jpg" alt="Perfume" class="product-image">
                     <div class="product-title">Perfume</div>
                 </a>
             </div>
@@ -272,5 +273,6 @@
             <p>&copy; 2024 AlphaMen. All rights reserved.</p>
         </div>
     </footer>
+    <script src="cart.js"></script>
 </body>
 </html>
