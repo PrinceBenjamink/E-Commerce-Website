@@ -1,0 +1,82 @@
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: center;
+        }
+        h1 {
+            color: #28a745;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px;
+        }
+        .btn-show-bill {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-show-bill:hover {
+            background-color: #0056b3;
+        }
+        .btn-download {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .btn-download:hover {
+            background-color: #218838;
+        }
+        .btn-print {
+            background-color: #ffc107;
+            color: #fff;
+        }
+        .btn-print:hover {
+            background-color: #e0a800;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .bill {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+        .bill h2 {
+            text-align: center;
+            color: #333;
+        }
+        .bill table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .bill table th, .bill table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
