@@ -13,23 +13,31 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
+            animation: fadeIn 1s ease-in-out;
         }
         header {
-            background: #fff;
+            background: linear-gradient(45deg, #ff0202, #fc3700);
             padding: 1rem 5%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         header a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
             font-weight: bold;
-            margin: 0 10px;
+            margin: 0 20px;
+            font-size: 18px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
         }
         header a:hover {
-            color: #007bff;
+            color: #ff6f61;
+            transform: scale(1.1);
         }
         .container {
             max-width: 1200px;
@@ -38,16 +46,19 @@
             background: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            animation: slideIn 1s ease-out;
         }
         .cart-header {
             font-size: 28px;
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
+            color: #333;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            animation: fadeIn 1s ease-in-out;
         }
         table th, table td {
             padding: 15px;
@@ -80,18 +91,34 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .actions button:hover {
+            transform: translateY(-3px);
         }
         .btn-continue {
             background-color: #6c757d;
             color: #fff;
+            transition: background-color 0.3s ease;
+        }
+        .btn-continue:hover {
+            background-color: #5a6268;
         }
         .btn-update {
             background-color: #007bff;
             color: #fff;
+            transition: background-color 0.3s ease;
+        }
+        .btn-update:hover {
+            background-color: #0056b3;
         }
         .btn-checkout {
             background-color: #28a745;
             color: #fff;
+            transition: background-color 0.3s ease;
+        }
+        .btn-checkout:hover {
+            background-color: #218838;
         }
         .btn-remove {
             background-color: red;
@@ -99,6 +126,37 @@
             padding: 5px 10px;
             border: none;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-remove:hover {
+            background-color: #c82333;
+        }
+        .empty-cart-message {
+            text-align: center;
+            font-size: 24px;
+            color: #666;
+            padding: 50px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -109,44 +167,99 @@
     </header>
     <div class="container">
         <div class="cart-header">Your Shopping Cart</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><img src="perfume1.jpg" alt="Perfume 1"> Elegant Scent</td>
-                    <td>$50</td>
-                    <td><input type="number" value="1" min="1" style="width: 60px;"></td>
-                    <td>$50</td>
-                    <td><button class="btn-remove">Remove</button></td>
-                </tr>
-                <tr>
-                    <td><img src="perfume2.jpg" alt="Perfume 2"> Floral Bliss</td>
-                    <td>$70</td>
-                    <td><input type="number" value="1" min="1" style="width: 60px;"></td>
-                    <td>$70</td>
-                    <td><button class="btn-remove">Remove</button></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="total-section">Subtotal: $120</div>
+        <div id="cart-content">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
         <div class="actions">
             <button class="btn-continue" onclick="window.location.href='eprojectrough.html'">Continue Shopping</button>
-            <button class="btn-update">Update Cart</button>
-            <button class="btn-checkout" onclick="redirectToThankYouPage()">Proceed to Checkout</button>
+            <button class="btn-update" id="updateCart">Update Cart</button>
+            <button class="btn-checkout" onclick="redirectToPaymentPage()">Proceed to Checkout</button>
         </div>
     </div>
+
     <script>
-        function redirectToThankYouPage() {
-            window.location.href = 'thank_you.html';
+        function loadCart() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartContent = document.getElementById('cart-content');
+            
+            if (cartItems.length === 0) {
+                cartContent.innerHTML = '<div class="empty-cart-message">Your cart is empty</div>';
+                return;
+            }
+
+            let tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            cartItems.forEach((item, index) => {
+                tableHTML += `
+                    <tr>
+                        <td><img src="${item.image}" alt="${item.name}"> ${item.name}</td>
+                        <td data-price="${item.price}">Rs. ${item.price}</td>
+                        <td><input type="number" value="${item.quantity}" min="1" class="quantity" style="width: 60px;"></td>
+                        <td class="item-total">Rs. ${(item.price * item.quantity).toFixed(2)}</td>
+                        <td><button class="btn-remove" onclick="removeItem(${index})">Remove</button></td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += `
+                    </tbody>
+                </table>
+                <div class="total-section" id="subtotal">
+                    Subtotal: Rs. ${calculateTotal(cartItems).toFixed(2)}
+                </div>
+            `;
+
+            cartContent.innerHTML = tableHTML;
         }
+
+        function calculateTotal(items) {
+            return items.reduce((total, item) => total + (item.price * item.quantity), 0);
+        }
+
+        function removeItem(index) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            loadCart();
+        }
+
+        function updateCart() {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const quantityInputs = document.querySelectorAll('.quantity');
+            
+            quantityInputs.forEach((input, index) => {
+                cartItems[index].quantity = parseInt(input.value);
+            });
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            loadCart();
+        }
+
+        function redirectToPaymentPage() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            if (cartItems.length === 0) {
+                alert("Purchase some products!");
+            } else {
+                window.location.href = 'payment.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
+            document.getElementById('updateCart').addEventListener('click', updateCart);
+        });
     </script>
 </body>
 </html>

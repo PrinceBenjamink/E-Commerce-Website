@@ -17,7 +17,7 @@
             background: #fff;
             padding: 20px;
             border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             display: inline-block;
             text-align: center;
         }
@@ -28,18 +28,64 @@
             font-size: 18px;
             color: #555;
         }
-        .btn-download {
+        .btn {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
+            text-decoration: none;
+            margin: 5px;
+        }
+        .btn-show-bill {
             background-color: #007bff;
             color: #fff;
-            text-decoration: none;
+        }
+        .btn-show-bill:hover {
+            background-color: #0056b3;
+        }
+        .btn-download {
+            background-color: #28a745;
+            color: #fff;
         }
         .btn-download:hover {
-            background-color: #0056b3;
+            background-color: #218838;
+        }
+        .btn-print {
+            background-color: #ffc107;
+            color: #fff;
+        }
+        .btn-print:hover {
+            background-color: #e0a800;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .bill {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+        .bill h2 {
+            text-align: center;
+            color: #333;
+        }
+        .bill table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .bill table th, .bill table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
         }
     </style>
 </head>
@@ -47,10 +93,103 @@
     <div class="container">
         <h1>Thank You for Shopping with Us!</h1>
         <p>Your order has been successfully placed. We appreciate your business and hope to serve you again soon.</p>
-        <a href="#" class="btn-download" id="downloadInvoice">Download Invoice</a>
+        <div class="btn-container">
+            <button class="btn btn-show-bill" id="showBillButton">Show the Bill</button>
+        </div>
+        <div class="bill" id="billDetails">
+            <h2>Your Bill</h2>
+            <div><strong>Customer Details:</strong> <span id="customerDetails"></span></div>
+            <div><strong>Payment Method:</strong> Cash on Delivery</div>
+            <table id="billTable">
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </table>
+        </div>
+        <div class="btn-container">
+            <button class="btn btn-download" id="downloadInvoice">Download Invoice</button>
+            <button class="btn btn-print" onclick="window.print()">Print Invoice</button>
+        </div>
     </div>
 
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script>
+        const showBillButton = document.getElementById('showBillButton');
+        const billDetails = document.getElementById('billDetails');
+        const downloadButton = document.getElementById('downloadInvoice');
+        const billTable = document.getElementById('billTable');
+        const customerDetails = document.getElementById('customerDetails');
+
+        // Load data from localStorage
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const paymentDetails = JSON.parse(localStorage.getItem('paymentDetails')) || { name: '', address: '', phone: '' };
+
+        // Populate customer details
+        customerDetails.textContent = `${paymentDetails.name}, ${paymentDetails.address}, ${paymentDetails.phone}`;
+
+        // Populate the bill table dynamically
+        let grandTotal = 0;
+        cartItems.forEach(item => {
+            const total = item.price * item.quantity;
+            grandTotal += total;
+            const row = `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.quantity}</td>
+                    <td>Rs. ${item.price.toFixed(2)}</td>
+                    <td>Rs. ${total.toFixed(2)}</td>
+                </tr>
+            `;
+            billTable.insertAdjacentHTML('beforeend', row);
+        });
+
+        // Add grand total row
+        billTable.insertAdjacentHTML('beforeend', `
+            <tr>
+                <td colspan="3" style="text-align: right;"><strong>Grand Total</strong></td>
+                <td><strong>Rs. ${grandTotal.toFixed(2)}</strong></td>
+            </tr>
+        `);
+
+        // Show the bill
+        showBillButton.addEventListener('click', () => {
+            billDetails.style.display = 'block';
+            showBillButton.style.display = 'none';
+        });
+
+        // Download the invoice as PDF
+        downloadButton.addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Add title and customer details
+            doc.text('Invoice', 105, 15, { align: 'center' });
+            doc.text(`Customer: ${paymentDetails.name}`, 10, 30);
+            doc.text(`Address: ${paymentDetails.address}`, 10, 40);
+            doc.text(`Phone: ${paymentDetails.phone}`, 10, 50);
+            doc.text('Payment Method: Cash on Delivery', 10, 60);
+
+            // Add table
+            const tableData = cartItems.map(item => [
+                item.name,
+                item.quantity,
+                `Rs. ${item.price.toFixed(2)}`,
+                `Rs. ${(item.price * item.quantity).toFixed(2)}`
+            ]);
+            tableData.push(['', '', 'Grand Total', `Rs. ${grandTotal.toFixed(2)}`]);
+
+            doc.autoTable({
+                head: [['Item', 'Quantity', 'Price', 'Total']],
+                body: tableData,
+                startY: 70,
+            });
+
+            doc.save('invoice.pdf');
+        });
     </script>
 </body>
 </html>
