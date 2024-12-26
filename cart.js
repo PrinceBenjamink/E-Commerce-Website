@@ -1,18 +1,15 @@
-// Initialize cart items from localStorage or empty array
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-// Function to toggle the cart popup
 function toggleCart() {
     const cartPopup = document.getElementById('cartPopup');
     cartPopup.style.display = cartPopup.style.display === 'block' ? 'none' : 'block';
     renderCart();
 }
 
-// Function to add an item to the cart
 function addToCart(productName, productPrice, productImage) {
     const item = cartItems.find(item => item.name === productName);
     if (item) {
-        item.quantity += 1; // Increase quantity if item already exists
+        item.quantity += 1;
     } else {
         cartItems.push({
             name: productName,
@@ -21,22 +18,20 @@ function addToCart(productName, productPrice, productImage) {
             quantity: 1
         });
     }
-    localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Save to localStorage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems)); 
     updateCartCount();
     alert('Item added to cart!');
 }
 
-// Function to update the cart count
 function updateCartCount() {
     const cartCount = document.querySelector('.cart-count');
     cartCount.textContent = cartItems.reduce((count, item) => count + item.quantity, 0);
 }
 
-// Function to render cart items
 function renderCart() {
     const cartItemsContainer = document.getElementById('cartItems');
     const cartTotal = document.getElementById('cartTotal');
-    cartItemsContainer.innerHTML = ''; // Clear existing items
+    cartItemsContainer.innerHTML = ''; 
     let total = 0;
 
     cartItems.forEach(item => {
@@ -55,18 +50,16 @@ function renderCart() {
         cartItemsContainer.appendChild(cartItem);
     });
 
-    cartTotal.textContent = total.toFixed(2); // Update total price
+    cartTotal.textContent = total.toFixed(2); 
 }
 
-// Function to remove an item from the cart
 function removeFromCart(productName) {
     cartItems = cartItems.filter(item => item.name !== productName);
-    localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Save to localStorage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems)); 
     updateCartCount();
     renderCart();
 }
 
-// Add event listeners to "Add to Cart" buttons
 document.querySelectorAll('.add-to-cart-button').forEach(button => {
     button.addEventListener('click', () => {
         const productDetails = button.closest('.details-right');
@@ -78,5 +71,4 @@ document.querySelectorAll('.add-to-cart-button').forEach(button => {
     });
 });
 
-// Update cart count on page load
 updateCartCount();
