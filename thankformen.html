@@ -60,7 +60,7 @@
         }
         .btn-container {
             display: flex;
-            justify-content: center; /* Center the Show the Bill button */
+            justify-content: center;
             align-items: center;
             gap: 10px;
         }
@@ -87,20 +87,6 @@
             padding: 10px;
             text-align: left;
         }
-        .btn-close {
-            background-color: #dc3545; /* Red background for the Close button */
-            color: #fff;
-            float: right; /* Align to the right */
-        }
-        .btn-close:hover {
-            background-color: #c82333;
-        }
-        .btn-container-left {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 10px;
-        }
     </style>
 </head>
 <body>
@@ -112,10 +98,8 @@
         </div>
         <div class="bill" id="billDetails">
             <h2>Your Bill</h2>
-            <div><strong>Customer Details:</strong> John Doe, john@example.com</div>
-            <div><strong>Purchase Time:</strong> December 24, 2024, 2:00 PM</div>
-            <div><strong>Payment Method:</strong> Credit Card</div>
-            <div><strong>Website:</strong> Your Website Name</div>
+            <div><strong>Customer Details:</strong> <span id="customerDetails"></span></div>
+            <div><strong>Payment Method:</strong> Cash on Delivery</div>
             <table id="billTable">
                 <tr>
                     <th>Item</th>
@@ -123,28 +107,11 @@
                     <th>Price</th>
                     <th>Total</th>
                 </tr>
-                <tr>
-                    <td>Example Item 1</td>
-                    <td>2</td>
-                    <td>$10</td>
-                    <td>$20</td>
-                </tr>
-                <tr>
-                    <td>Example Item 2</td>
-                    <td>1</td>
-                    <td>$15</td>
-                    <td>$15</td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="text-align: right;"><strong>Grand Total</strong></td>
-                    <td><strong>$35</strong></td>
-                </tr>
             </table>
-            <div class="btn-container-left">
-                <button class="btn btn-download" id="downloadInvoice">Download Invoice</button>
-                <button class="btn btn-print" onclick="window.print()">Print Invoice</button>
-                <button class="btn btn-close" id="closeBillButton" style="display: none;">Close</button>
-            </div>
+        </div>
+        <div class="btn-container">
+            <button class="btn btn-download" id="downloadInvoice">Download Invoice</button>
+            <button class="btn btn-print" onclick="window.print()">Print Invoice</button>
         </div>
     </div>
 
@@ -152,56 +119,77 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script>
         const showBillButton = document.getElementById('showBillButton');
-        const closeBillButton = document.getElementById('closeBillButton');
         const billDetails = document.getElementById('billDetails');
         const downloadButton = document.getElementById('downloadInvoice');
+        const billTable = document.getElementById('billTable');
+        const customerDetails = document.getElementById('customerDetails');
 
+        // Load data from localStorage
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const paymentDetails = JSON.parse(localStorage.getItem('paymentDetails')) || { name: '', address: '', phone: '' };
+
+        // Populate customer details
+        customerDetails.textContent = `${paymentDetails.name}, ${paymentDetails.address}, ${paymentDetails.phone}`;
+
+        // Populate the bill table dynamically
+        let grandTotal = 0;
+        cartItems.forEach(item => {
+            const total = item.price * item.quantity;
+            grandTotal += total;
+            const row = `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.quantity}</td>
+                    <td>Rs. ${item.price.toFixed(2)}</td>
+                    <td>Rs. ${total.toFixed(2)}</td>
+                </tr>
+            `;
+            billTable.insertAdjacentHTML('beforeend', row);
+        });
+
+        // Add grand total row
+        billTable.insertAdjacentHTML('beforeend', `
+            <tr>
+                <td colspan="3" style="text-align: right;"><strong>Grand Total</strong></td>
+                <td><strong>Rs. ${grandTotal.toFixed(2)}</strong></td>
+            </tr>
+        `);
+
+        // Show the bill
         showBillButton.addEventListener('click', () => {
             billDetails.style.display = 'block';
             showBillButton.style.display = 'none';
-            closeBillButton.style.display = 'inline-block';
         });
 
-        closeBillButton.addEventListener('click', () => {
-            billDetails.style.display = 'none';
-            showBillButton.style.display = 'inline-block';
-            closeBillButton.style.display = 'none';
-        });
-
+        // Download the invoice as PDF
         downloadButton.addEventListener('click', () => {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Adding Title and Customer Details
-            doc.setFontSize(18);
+            // Add title and customer details
             doc.text('Invoice', 105, 15, { align: 'center' });
-            doc.setFontSize(12);
-            doc.text('Customer Details: John Doe, john@example.com', 10, 30);
-            doc.text('Purchase Time: December 24, 2024, 2:00 PM', 10, 40);
-            doc.text('Payment Method: Credit Card', 10, 50);
-            doc.text('Website: Your Website Name', 10, 60);
+            doc.text(`Customer: ${paymentDetails.name}`, 10, 30);
+            doc.text(`Address: ${paymentDetails.address}`, 10, 40);
+            doc.text(`Phone: ${paymentDetails.phone}`, 10, 50);
+            doc.text('Payment Method: Cash on Delivery', 10, 60);
 
-            // Adding Table Data
-            const tableData = [
-                ['Item', 'Quantity', 'Price', 'Total'],
-                ['Example Item 1', '2', '$10', '$20'],
-                ['Example Item 2', '1', '$15', '$15'],
-                ['', '', 'Grand Total', '$35'],
-            ];
+            // Add table
+            const tableData = cartItems.map(item => [
+                item.name,
+                item.quantity,
+                `Rs. ${item.price.toFixed(2)}`,
+                `Rs. ${(item.price * item.quantity).toFixed(2)}`
+            ]);
+            tableData.push(['', '', 'Grand Total', `Rs. ${grandTotal.toFixed(2)}`]);
 
             doc.autoTable({
-                head: [tableData[0]], // Table header
-                body: tableData.slice(1), // Table body
+                head: [['Item', 'Quantity', 'Price', 'Total']],
+                body: tableData,
                 startY: 70,
-                theme: 'grid',
-                headStyles: { fillColor: [40, 167, 69], textColor: [255, 255, 255] },
-                bodyStyles: { textColor: [0, 0, 0] },
             });
 
-            // Save the PDF
             doc.save('invoice.pdf');
         });
     </script>
 </body>
 </html>
-

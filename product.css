@@ -5,6 +5,7 @@ body {
     background-color: #f8f8f8;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 header {
@@ -15,6 +16,10 @@ header {
     width: 100%;
     top: 0;
     z-index: 100;
+}
+
+main {
+    flex: 1;
 }
 
 nav {
@@ -66,25 +71,29 @@ nav {
 
 .container {
     margin-top: 100px;
-    display: flex;
-    justify-content: center;  
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, auto);
     gap: 20px;
     padding: 20px;
-    flex-wrap: nowrap; 
-    overflow-x: auto;  
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 
 .product-card {
     background: white;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(189, 43, 43, 0.1);
-    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
     text-align: center;
     cursor: pointer;
-    position: relative;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-width: 200px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .product-card:hover {
@@ -93,9 +102,10 @@ nav {
 }
 
 .product-card img {
-    width: 200px;
-    height:250px;
-    border-radius: 10px;
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover; /* Maintains aspect ratio */
+    border-radius: 8px;
     transition: transform 0.3s ease;
 }
 
@@ -104,14 +114,16 @@ nav {
 }
 
 .product-name {
+    margin-top: 10px;
     font-size: 1.2rem;
     font-weight: bold;
-    margin: 10px 0;
+    color: #333;
 }
 
 .product-price {
+    margin-top: 5px;
     font-size: 1rem;
-    color: #ff4444;
+    color: #777;
 }
 
 .product-details {
@@ -198,10 +210,12 @@ nav {
 #productDetails8:target ~ #productList,
 #productDetails9:target ~ #productList,
 #productDetails10:target ~ #productList {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
-    justify-content: center;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .cart-item {
@@ -240,15 +254,16 @@ nav {
     text-align: right;
 }
 
+
 footer {
     background-color: #333;
     color: white;
     padding: 2rem 5%;
     text-align: center;
+    margin-top: auto; /* Ensure footer is pushed to the bottom */
 }
 
 .copyright {
     border-top: 1px solid #555;
-    
     padding-top: 1rem;
 }

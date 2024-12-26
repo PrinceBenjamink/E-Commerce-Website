@@ -71,6 +71,19 @@
             padding: 0.2rem 0.5rem;
             font-size: 0.8rem;
         }
+        .auth-buttons button {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 1rem;
+        }
+
+        .auth-buttons button:hover {
+            background-color: #ff2222;
+        }
 
         /* Hero Section */
         .hero {
@@ -124,6 +137,98 @@
             background-color: #ff2222;
             transform: scale(1.1);
         }
+       /* Popup Styles */
+       .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        .popup form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .popup label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .popup input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .popup input:focus {
+            border-color: #ff4444;
+            outline: none;
+        }
+
+        .popup-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .popup .close-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .popup button {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .popup button:hover {
+            background-color: #ff2222;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+        .close-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
 
         @keyframes fadeIn {
             from {
@@ -223,13 +328,17 @@
             <div class="nav-links">
                 <a href="eprojectrough.html">Home</a>
                 <a href="categoriesformen.html">Shop</a>
-                <a href="Loginformen.html">Login</a>
                 <a href="carformen.html">Cart</a>
             </div>
             <a href="carformen.html" class="cart-icon" onclick="toggleCart()">
                 🛒
                 <span class="cart-count">0</span>
             </a>
+        </div>
+        <div class="auth-buttons">
+            <button id="loginBtn">Login</button>
+            <button id="signupBtn">Signup</button>
+        </div>
         </nav>
     </header>
     <section class="hero">
@@ -239,6 +348,53 @@
             <a href="categoriesformen.html"><button class="cta-button">Shop Now</button></a>
         </div>
     </section>
+    <!-- Login Popup -->
+    <div id="loginPopup" class="popup">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="loginUsername">Username:</label>
+            <input type="text" id="loginUsername" required>
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" required>
+            <div class="popup-buttons">
+                <button type="submit">Login</button>
+                <button class="close-btn" id="closeLogin">Close</button>
+            </div>
+        </form>
+        <p>New User? <span id="switchToSignup" style="color: blue; cursor: pointer;">Click here</span></p>
+    </div>
+
+   <!-- Signup Popup -->
+<div id="signupPopup" class="popup">
+    <h2>Signup</h2>
+    <form id="signupForm">
+        <label for="signupUsername">Username:</label>
+        <input type="text" id="signupUsername" required>
+        
+        <label for="signupPhone">Phone Number:</label>
+        <input type="tel" id="signupPhone" pattern="[0-9]{10}" required placeholder="10-digit phone number">
+        
+        <label for="signupPassword">New Password:</label>
+        <input type="password" id="signupPassword" required>
+        
+        <label for="signupConfirmPassword">Confirm Password:</label>
+        <input type="password" id="signupConfirmPassword" required>
+        
+        <div class="popup-buttons">
+            <button type="submit">Signup</button>
+            <button class="close-btn" id="closeSignup">Close</button>
+        </div>
+    </form>
+</div>
+
+
+    <!-- Welcome Popup -->
+    <div id="welcomePopup" class="popup">
+        <h2 id="welcomeMessage">Welcome Back!!</h2>
+        <button class="close-btn" id="closeWelcome">Close</button>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
     <section class="featured">
         <h2 class="section-title">Featured Products</h2>
         <div class="products-grid">
@@ -274,5 +430,99 @@
         </div>
     </footer>
     <script src="cart.js"></script>
+    <script>
+        const loginBtn = document.getElementById('loginBtn');
+const signupBtn = document.getElementById('signupBtn');
+const loginPopup = document.getElementById('loginPopup');
+const signupPopup = document.getElementById('signupPopup');
+const welcomePopup = document.getElementById('welcomePopup');
+const closeLogin = document.getElementById('closeLogin');
+const closeSignup = document.getElementById('closeSignup');
+const closeWelcome = document.getElementById('closeWelcome');
+const overlay = document.getElementById('overlay');
+const switchToSignup = document.getElementById('switchToSignup');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+const welcomeMessage = document.getElementById('welcomeMessage');
+
+function togglePopup(popup, state) {
+    popup.classList[state ? 'add' : 'remove']('active');
+    overlay.classList[state ? 'add' : 'remove']('active');
+}
+
+// Open and close popups
+loginBtn.addEventListener('click', () => togglePopup(loginPopup, true));
+signupBtn.addEventListener('click', () => togglePopup(signupPopup, true));
+closeLogin.addEventListener('click', () => togglePopup(loginPopup, false));
+closeSignup.addEventListener('click', () => togglePopup(signupPopup, false));
+closeWelcome.addEventListener('click', () => togglePopup(welcomePopup, false));
+overlay.addEventListener('click', () => {
+    togglePopup(loginPopup, false);
+    togglePopup(signupPopup, false);
+    togglePopup(welcomePopup, false);
+});
+switchToSignup.addEventListener('click', () => {
+    togglePopup(loginPopup, false);
+    togglePopup(signupPopup, true);
+});
+
+// Handle signup form submission
+signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('signupUsername').value;
+    const phone = document.getElementById('signupPhone').value;
+    const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+    // Validate confirm password matches
+    if (password !== confirmPassword) {
+        alert('Passwords do not match. Please try again.');
+        return;
+    }
+
+    // Validate phone number format
+    if (!/^\d{10}$/.test(phone)) {
+        alert('Invalid phone number. Please enter a 10-digit number.');
+        return;
+    }
+
+    // Store in localStorage
+    localStorage.setItem('username', username);
+    localStorage.setItem('phone', phone);
+    localStorage.setItem('password', password);
+
+    alert('Signup Successful!');
+    togglePopup(signupPopup, false);
+});
+
+// Handle login form submission
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    const storedUsername = localStorage.getItem('username');
+    const storedPassword = localStorage.getItem('password');
+
+    if (username === storedUsername && password === storedPassword) {
+        welcomeMessage.textContent = `Welcome Back, ${username}!`;
+        togglePopup(loginPopup, false);
+        togglePopup(welcomePopup, true);
+        loginBtn.textContent = 'Logout';
+        signupBtn.style.display = 'none';
+    } else {
+        alert('Invalid credentials. Please try again.');
+    }
+});
+
+// Handle logout
+loginBtn.addEventListener('click', () => {
+    if (loginBtn.textContent === 'Logout') {
+        loginBtn.textContent = 'Login';
+        signupBtn.style.display = 'inline-block';
+        alert('Logged out successfully!');
+    }
+});
+
+    </script>
 </body>
 </html>

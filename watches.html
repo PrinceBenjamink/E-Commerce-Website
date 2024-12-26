@@ -4,269 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Men's Watch Collection</title>
-<<<<<<< HEAD
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            background-color: #f49c9c;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 1rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav {
-            font-size: 20px;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 30px;
-            font-weight: bold;
-            color: #151414;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
-
-        .cart-icon {
-            position: relative;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: #333;
-            margin-right: 100px;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #ff4444;
-            color: rgb(8, 0, 0);
-            border-radius: 50%;
-            padding: 0.2rem 0.5rem;
-            font-size: 0.8rem;
-        }
-
-        .container {
-            margin-top: 120px;
-            display: flex;
-            justify-content: center;  
-            gap: 20px;
-            padding: 20px;
-            flex-wrap: nowrap; 
-            overflow-x: auto;  
-            transition: all 0.3s ease;
-            flex-grow: 1;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(189, 43, 43, 0.1);
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-width: 200px;
-        }
-
-        .product-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .product-card img {
-            width: 200px;
-            height: 250px;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover img {
-            transform: scale(1.1);
-        }
-
-        .product-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .product-price {
-            font-size: 1rem;
-            color: #ff4444;
-        }
-
-        .product-details {
-            background-color: #dad0d0;
-            display: none;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .details-left img {
-            margin-top: 90px;
-            width: 100%;
-            max-width: 400px;
-            border-radius: 10px;
-        }
-
-        .details-right {
-            margin: 50px;
-            margin-top: 90px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            padding: 10px;
-        }
-
-        .details-right .details-name {
-            margin-top: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .details-right .details-description {
-            font-size: 1.2rem;
-            margin: 10px 0;
-            color: #555;
-        }
-
-        .details-right .details-price {
-            font-size: 1.5rem;
-            color: #ff4444;
-            margin: 15px 0;
-        }
-
-        .add-to-cart-button,
-        .back-button {
-            background-color: #aa5252;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            margin: 10px 0;
-            text-decoration: none;
-            display: inline-block;
-            transition: background-color 0.3s;
-        }
-
-        .add-to-cart-button:hover,
-        .back-button:hover {
-            background-color: #ff2222;
-        }
-
-        #productDetails1:target,
-        #productDetails2:target,
-        #productDetails3:target,
-        #productDetails4:target,
-        #productDetails5:target,
-        #productDetails6:target,
-        #productDetails7:target,
-        #productDetails8:target,
-        #productDetails9:target,
-        #productDetails10:target {
-            display: flex;
-            margin-top: 20px;
-        }
-
-        .cart-popup {
-            display: none;
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-height: 400px;
-            overflow-y: auto;
-            z-index: 1000;
-            min-width: 300px;
-        }
-
-        .cart-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-            border-radius: 4px;
-        }
-
-        .cart-item-details {
-            flex-grow: 1;
-        }
-
-        .cart-item-price {
-            color: #ff4444;
-            font-weight: bold;
-        }
-
-        .remove-item {
-            color: #ff4444;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .cart-total {
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 2px solid #eee;
-            font-weight: bold;
-            text-align: right;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 2rem 5%;
-            text-align: center;
-            margin-top: auto;
-        }
-
-        .copyright {
-            border-top: 1px solid #555;
-            padding-top: 1rem;
-        }
-    </style>
-=======
     <link rel="stylesheet" href="product.css">
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
 </head>
 <body>
     <header>
@@ -275,22 +13,6 @@
             <div class="nav-links">
                 <a href="eprojectrough.html">Home</a>
                 <a href="categoriesformen.html">Shop</a>
-<<<<<<< HEAD
-            </div>
-            <div class="cart-icon" onclick="toggleCart()">
-                🛒
-                <span class="cart-count">0</span>
-            </div>
-        </nav>
-    </header>
-    <div class="cart-popup" id="cartPopup">
-        <h3>Shopping Cart</h3>
-        <div id="cartItems"></div>
-        <div class="cart-total">
-            Total: $<span id="cartTotal">0.00</span>
-        </div>
-    </div>
-=======
                 <a href="carformen.html">Cart</a>
             </div>
             <a href="carformen.html" class="cart-icon" onclick="toggleCart()">
@@ -302,26 +24,16 @@
     </header>
     
 
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
 
     <!-- Product Details Sections -->
     <div id="productDetails1" class="product-details">
         <div class="details-left">
-<<<<<<< HEAD
-            <img src="Image/watch1.jpg" alt="Urban Stride Sneakers">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Urban Stride Sneakers</div>
-            <div class="details-description">A perfect blend of comfort and style for everyday wear.</div>
-            <div class="details-price">$89.99</div>
-=======
             <img src="Image/watch1.jpg" alt="TIMEWEAR">
         </div>
         <div class="details-right">
             <div class="details-name">TIMEWEAR</div>
             <div class="details-description">Timewear watches offer sleek designs, precise movements, and timeless style for any occasion.</div>
             <div class="details-price">Rs.2650</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             <button class="add-to-cart-button">Add to Cart</button>
             <a href="#productList" class="back-button">Back to Products</a>
         </div>
@@ -329,42 +41,24 @@
 
     <div id="productDetails2" class="product-details">
         <div class="details-left">
-<<<<<<< HEAD
-            <img src="Image/watch2.jpg" alt="Classic Leather Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Classic Leather Watch</div>
-            <div class="details-description">Stylish and timeless, perfect for every occasion.</div>
-            <div class="details-price">$129.99</div>
-=======
             <img src="Image/watch2.jpg" alt="RUSTET">
         </div>
         <div class="details-right">
             <div class="details-name">RUSTET</div>
             <div class="details-description">SKMEI Men's Watch New Wheels Rolling Creative Fashion Che Youhui League Fans Butterfly Double Snap Gift Wristwatch - 1990</div>
             <div class="details-price">Rs.1389</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             <button class="add-to-cart-button">Add to Cart</button>
             <a href="#productList" class="back-button">Back to Products</a>
         </div>
     </div>
     <div id="productDetails3" class="product-details">
         <div class="details-left">
-<<<<<<< HEAD
-            <img src="Image/watch3.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-=======
             <img src="Image/watch3.jpg" alt="OLEVS">
         </div>
         <div class="details-right">
             <div class="details-name">OLEVS</div>
             <div class="details-description">OLEVS Watches for Men Chronograph Business Wrist Watches Analog Quartz Moon Phase Stainless Steel Waterproof Luminous Dress Watches</div>
             <div class="details-price">Rs.2950</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             <button class="add-to-cart-button">Add to Cart</button>
             <a href="#productList" class="back-button">Back to Products</a>
         </div>
@@ -374,141 +68,81 @@
             <img src="Image/watch4.jpg" alt="Sporty Fitness Watch">
         </div>
         <div class="details-right">
-<<<<<<< HEAD
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-=======
             <div class="details-name">FASTRACK VYB</div>
             <div class="details-description">Fastrack Vyb Limitless Quartz Analog Navy Blue Dial Gun Genuine Leather Strap Watch for Men-FV30012QM01W</div>
             <div class="details-price">Rs.1995</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             <button class="add-to-cart-button">Add to Cart</button>
             <a href="#productList" class="back-button">Back to Products</a>
         </div>
     </div>
     <div id="productDetails5" class="product-details">
         <div class="details-left">
-<<<<<<< HEAD
-            <img src="Image/watch5.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-=======
             <img src="Image/watch5.jpg" alt="FASTRACK SPORT">
         </div>
         <div class="details-right">
             <div class="details-name">FASTRACK SPORT</div>
             <div class="details-description">Fastrack Analog Unisex-Adult Watch.</div>
             <div class="details-price">Rs.995</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             <button class="add-to-cart-button">Add to Cart</button>
             <a href="#productList" class="back-button">Back to Products</a>
         </div>
     </div>
     <div id="productDetails6" class="product-details">
         <div class="details-left">
-<<<<<<< HEAD
-            <img src="Image/watch6.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watchl</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-=======
             <img src="Image/watch6.jpg" alt="CASIO">
         </div>
         <div class="details-right">
             <div class="details-name">CASIO</div>
             <div class="details-description">Casio Stainless Steel Men Vintage Digital Grey Dial Unisex A-158Wa-1Q (D011), Band Color-Silver</div>
             <div class="details-price">Rs.1695</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             <button class="add-to-cart-button">Add to Cart</button>
             <a href="#productList" class="back-button">Back to Products</a>
         </div>
     </div>
     <div id="productDetails7" class="product-details">
         <div class="details-left">
-<<<<<<< HEAD
-            <img src="Image/watch7.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-=======
             <img src="Image/watch7.jpg" alt="BRUNO MILANO">
         </div>
         <div class="details-right">
             <div class="details-name">BRUNO MILANO</div>
             <div class="details-description">BRUNO MILANO Luxury Fashion Watch for Men Dual Tone Quartz Stainless Steel with Calendar Sport Business Wrist Watch</div>
             <div class="details-price">Rs.3210</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             <button class="add-to-cart-button">Add to Cart</button>
             <a href="#productList" class="back-button">Back to Products</a>
         </div>
     </div>
     <div id="productDetails8" class="product-details">
         <div class="details-left">
-<<<<<<< HEAD
-            <img src="Image/watch8.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-=======
             <img src="Image/watch8.jpg" alt="MATRIX">
         </div>
         <div class="details-right">
             <div class="details-name">MATRIX</div>
             <div class="details-description">Matrix Minimalist Dial with Softest Silicone Strap Analog Wrist Watch for Men & Boys</div>
             <div class="details-price">Rs.1110</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             <button class="add-to-cart-button">Add to Cart</button>
             <a href="#productList" class="back-button">Back to Products</a>
         </div>
     </div>
     <div id="productDetails9" class="product-details">
         <div class="details-left">
-<<<<<<< HEAD
-            <img src="Image/watch9.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-=======
             <img src="Image/watch9.jpg" alt="CARLINGTON">
         </div>
         <div class="details-right">
             <div class="details-name">CARLINGTON</div>
             <div class="details-description">Carlington Resin Endurance Analog-Digital Sports Watch for Men and Boys - CT9105 Series One</div>
             <div class="details-price">Rs.1680</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             <button class="add-to-cart-button">Add to Cart</button>
             <a href="#productList" class="back-button">Back to Products</a>
         </div>
     </div>
     <div id="productDetails10" class="product-details">
         <div class="details-left">
-<<<<<<< HEAD
-            <img src="Image/watch10.jpg" alt="Sporty Fitness Watch">
-        </div>
-        <div class="details-right">
-            <div class="details-name">Sporty Fitness Watch</div>
-            <div class="details-description">A fitness-focused watch with advanced features.</div>
-            <div class="details-price">$149.99</div>
-=======
             <img src="Image/watch10.jpg" alt="TITAN">
         </div>
         <div class="details-right">
             <div class="details-name">TITAN</div>
             <div class="details-description">Titan Men's Timeless Style Analog Watch: Refined Black Dial and Metal Strap-1806NM01</div>
             <div class="details-price">Rs.3996</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             <button class="add-to-cart-button">Add to Cart</button>
             <a href="#productList" class="back-button">Back to Products</a>
         </div>
@@ -520,142 +154,20 @@
     <div class="container" id="productList">
         <div class="product-card">
             <a href="#productDetails1" style="text-decoration: none;">
-<<<<<<< HEAD
-                <img src="Image/watch1.jpg" alt="Urban Stride Sneakers">
-                <div class="product-name">Urban Stride Sneakers</div>
-                <div class="product-price">$89.99</div>
-=======
                 <img src="Image/watch1.jpg" alt="TIMEWEAR">
                 <div class="product-name">TIMEWEAR</div>
                 <div class="product-price">Rs.2650</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             </a>
         </div>
         <div class="product-card">
             <a href="#productDetails2" style="text-decoration: none;">
-<<<<<<< HEAD
-                <img src="Image/watch2.jpg" alt="Classic Leather Watch">
-                <div class="product-name">Classic Leather Watch</div>
-                <div class="product-price">$129.99</div>
-=======
                 <img src="Image/watch2.jpg" alt="RUSTET">
                 <div class="product-name">RUSTET</div>
                 <div class="product-price">Rs.1389</div>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
             </a>
         </div>
         <div class="product-card">
             <a href="#productDetails3" style="text-decoration: none;">
-<<<<<<< HEAD
-                <img src="Image/watch3.jpg" alt="Urban Stride Sneakers">
-                <div class="product-name">Urban Stride Sneakers</div>
-                <div class="product-price">$89.99</div>
-            </a>
-        </div>
-        
-        <div class="product-card">
-            <a href="#productDetails4" style="text-decoration: none;">
-                <img src="Image/watch4.jpg" alt="Urban Stride Sneakers">
-                <div class="product-name">Urban Stride Sneakers</div>
-                <div class="product-price">$89.99</div>
-            </a>
-
-    </div>
-    <div class="product-card">
-        <a href="#productDetails5" style="text-decoration: none;">
-            <img src="Image/watch5.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    <div class="product-card">
-        <a href="#productDetails6" style="text-decoration: none;">
-            <img src="Image/watch6.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    <div class="product-card">
-        <a href="#productDetails7" style="text-decoration: none;">
-            <img src="Image/watch7.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    <div class="product-card">
-        <a href="#productDetails8" style="text-decoration: none;">
-            <img src="Image/watch8.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    <div class="product-card">
-        <a href="#productDetails9" style="text-decoration: none;">
-            <img src="Image/watch9.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    <div class="product-card">
-        <a href="#productDetails10" style="text-decoration: none;">
-            <img src="Image/watch10.jpg" alt="Urban Stride Sneakers">
-            <div class="product-name">Urban Stride Sneakers</div>
-            <div class="product-price">$89.99</div>
-        </a>
-    </div>
-    
-    </div>
-    <footer>
-        <div class="copyright">
-            <p>&copy; 2024 AlphaMen. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-function toggleCart() {
-    // Redirect to cart page when cart icon is clicked
-    window.location.href = 'carformen.html';
-}
-
-function addToCart(event) {
-    const detailsContainer = event.target.closest('.details-right');
-    const item = {
-        name: detailsContainer.querySelector('.details-name').textContent,
-        price: parseFloat(detailsContainer.querySelector('.details-price').textContent.replace('$', '')),
-        image: detailsContainer.parentElement.querySelector('.details-left img').src,
-        quantity: 1
-    };
-    
-    cartItems.push(item);
-    // Save to localStorage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    updateCartCount();
-    // Just show the alert without redirecting
-    alert('Item added to cart!');
-}
-
-function updateCartCount() {
-    const cartCount = document.querySelector('.cart-count');
-    if (cartCount) {
-        cartCount.textContent = cartItems.length;
-    }
-}
-
-// Initialize cart count when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    updateCartCount();
-    
-    // Add event listeners to all "Add to Cart" buttons
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', addToCart);
-    });
-});
-    </script>
-</head>
-=======
                 <img src="Image/watch3.jpg" alt="OLEVS">
                 <div class="product-name">OLEVS</div>
                 <div class="product-price">Rs.2950</div>
@@ -723,4 +235,3 @@ document.addEventListener('DOMContentLoaded', function() {
         
 </body>
 </html>
->>>>>>> 11bd93379e2fe989f46447889311d522b8cf8740
